@@ -1,3 +1,3 @@
-**v1.4.3** (2021-09-16)
+**v1.5.0** (2021-09-26)
 
-- Changed the Repository name and location.
+- Adds `state_class: measurement` for sensors.

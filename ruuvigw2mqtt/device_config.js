@@ -179,5 +179,6 @@ module.exports = {
     }${id}`,
     name: `${id}_${type}`,
     unique_id: `${id}_${type}_homeassistant`,
+    state_class: "measurement",
   }),
 };
