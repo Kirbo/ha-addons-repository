@@ -33,7 +33,7 @@ function copy-backup-to-remote {
     echo "Local files:"
     echo ${LOCAL_FILES}
     echo "Remote files:"
-    echo ${LOCAL_FILES}
+    echo ${REMOTE_FILES}
 
     NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar)" | sed -e "s/+//")
 
@@ -50,7 +50,7 @@ function copy-backup-to-remote {
 
         echo "---"
         echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
-        sshpass -e rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
+        # sshpass -e rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
     fi
 }
 
