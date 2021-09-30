@@ -27,13 +27,18 @@ function copy-backup-to-remote {
 
     echo "---"
     echo "[INFO] Remote files:"
-    sshpass -e ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -ltrh ${REMOTE_DIRECTORY}"
-    REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -trh ${REMOTE_DIRECTORY} && cd ${REMOTE_DIRECTORY} && du -sch")
-    NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(>|\+)")
+    sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -ltrh ${REMOTE_DIRECTORY}"
+    REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -trh ${REMOTE_DIRECTORY} && cd ${REMOTE_DIRECTORY} && du -sch")
+    NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar) | sed -e 's/+//'")
 
     echo -e "${NEW_FILES}"
 
-    if [ -n "${NEW_FILES}" ]; then
+    if [[ -z "${NEW_FILES}" ]]; then echo "1"; fi
+    if [[ "${NEW_FILES}" == "" ]]; then echo "2"; fi
+    if [ -n "${NEW_FILES}" ]; then echo "3"; fi
+    if [ -z "${NEW_FILES}" ]; then echo "4"; fi
+
+    if [[ -z "${NEW_FILES}" ]]; then
         echo "---"
         echo "[INFO] Everything already synced!"
     else
