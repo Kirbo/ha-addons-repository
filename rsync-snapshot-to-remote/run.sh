@@ -28,7 +28,7 @@ function copy-backup-to-remote {
 
     echo "---"
     echo "[INFO] Remote files:"
-    sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" 'ls -ltrh '"${REMOTE_DIRECTORY}"' | grep -v "total" | awk {"printf "\t%s\t%s\n", $5, $9"} && cd '"${REMOTE_DIRECTORY}"' && du -sch'
+    sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" 'ls -ltrh '"${REMOTE_DIRECTORY}"' | grep -v "total" | awk {"printf "\\t%s\\t%s\\n", \$5, \$9"} && cd '"${REMOTE_DIRECTORY}"' && du -sch'
     REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -trh ${REMOTE_DIRECTORY}")
 
     NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar)" | sed -e "s/+//")
