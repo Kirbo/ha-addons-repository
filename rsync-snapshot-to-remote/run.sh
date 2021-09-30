@@ -15,21 +15,26 @@ res1=$(date +%s.%N)
 echo "$(date +"%Y-%m-%d-%H_%M_%S") - [INFO] Sync snapshots to remote started..."
 
 function copy-backup-to-remote {
+    export SSHPASS="${RSYNC_PASSWORD}"
     SSH_URL="${RSYNC_USER}@${RSYNC_HOST}"
     RSYNC_URL="${SSH_URL}::${REMOTE_DIRECTORY}"
+
+    echo
     echo "[INFO] Local files:"
     ls -ltrh /backup
-
     LOCAL_FILES=$(ls -trh /backup)
 
-    export SSHPASS="${RSYNC_PASSWORD}"
-
+    echo "---"
     echo "[INFO] Remote files:"
     sshpass -ve ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -ltrh ${REMOTE_DIRECTORY}"
     REMOTE_FILES=$(sshpass -ve ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -trh ${REMOTE_DIRECTORY}")
+    NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(>|\+)")
 
-    echo "[INFO] New files to be synced $(diff <(echo "${LOCAL_FILES}") <(echo "${REMOTE_FILES}"))"
+    echo "---"
+    echo "[INFO] New files to be synced:"
+    echo $(ls -ltrh /backup | grep -E "($(echo ${NEW_FILES} | awk -vORS="|" '{ print $2 }' | sed 's/|$/\n/')")
 
+    echo "---"
     echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
     sshpass -ve rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
 }
