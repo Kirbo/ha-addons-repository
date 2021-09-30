@@ -14,6 +14,7 @@ res1=$(date +%s.%N)
 
 echo "$(date +"%Y-%m-%d-%H_%M_%S") - [INFO] Sync snapshots to remote started..."
 
+# shellcheck disable=SC2120
 function copy-backup-to-remote {
     export SSHPASS="${RSYNC_PASSWORD}"
     SSH_URL="${RSYNC_USER}@${RSYNC_HOST}"
@@ -21,13 +22,13 @@ function copy-backup-to-remote {
 
     echo
     echo "[INFO] Local files:"
-    ls -ltrh /backup
+    ls -ltrh /backup | awk '{print " ",$5," ",$9}'
     (cd /backup && du -sch)
     LOCAL_FILES=$(ls -trh /backup)
 
     echo "---"
     echo "[INFO] Remote files:"
-    sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -ltrh ${REMOTE_DIRECTORY} && cd ${REMOTE_DIRECTORY} && du -sch"
+    sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -ltrh ${REMOTE_DIRECTORY} | awk '{print " ",$5," ",$9}' && cd ${REMOTE_DIRECTORY} && du -sch"
     REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -trh ${REMOTE_DIRECTORY}")
 
     NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar)" | sed -e "s/+//")
