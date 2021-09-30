@@ -29,7 +29,16 @@ function copy-backup-to-remote {
     echo "[INFO] Remote files:"
     sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -ltrh ${REMOTE_DIRECTORY}"
     REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -trh ${REMOTE_DIRECTORY} && cd ${REMOTE_DIRECTORY} && du -sch")
+
+    echo "Local files:"
+    echo ${LOCAL_FILES}
+    echo "Remote files:"
+    echo ${LOCAL_FILES}
+
     NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar)" | sed -e "s/+//")
+
+    echo "New files:"
+    echo ${NEW_FILES}
 
     if [[ -z "${NEW_FILES}" ]]; then
         echo "---"
