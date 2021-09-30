@@ -43,7 +43,7 @@ function copy-backup-to-remote {
 
         echo "---"
         echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
-        # sshpass -e rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
+        sshpass -e rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
     fi
 }
 
@@ -65,5 +65,6 @@ dt3=$(echo "$dt2-3600*$dh" | bc)
 dm=$(echo "$dt3/60" | bc)
 ds=$(echo "$dt3-60*$dm" | bc)
 
+echo -n "$(date +"%Y-%m-%d-%H_%M_%S") - [INFO] "
 LC_NUMERIC=C printf "Total runtime: %d:%02d:%02d:%02.4f\n" "${dd}" "${dh}" "${dm}" "${ds}"
 exit 0
