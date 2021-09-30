@@ -45,7 +45,7 @@ function copy-backup-to-remote {
 
         echo "---"
         echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
-        sshpass -e rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
+        sshpass -e rsync -avz /backup/ "${RSYNC_URL}" --ignore-existing
     fi
 }
 
