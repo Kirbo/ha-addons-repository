@@ -23,7 +23,7 @@ function copy-backup-to-remote {
     export SSHPASS="${RSYNC_PASSWORD}"
 
     echo "[INFO] Remote files:"
-    sshpass -ve ssh ${SSH_URL} "ls -ltrh ${REMOTE_DIRECTORY}"
+    sshpass -ve ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -ltrh ${REMOTE_DIRECTORY}"
 
     echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
     sshpass -ve rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
