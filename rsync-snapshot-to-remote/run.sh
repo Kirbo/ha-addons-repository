@@ -26,17 +26,22 @@ function copy-backup-to-remote {
 
     echo "---"
     echo "[INFO] Remote files:"
-    sshpass -ve ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -ltrh ${REMOTE_DIRECTORY}"
+    sshpass -e ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -ltrh ${REMOTE_DIRECTORY}"
     REMOTE_FILES=$(sshpass -ve ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -trh ${REMOTE_DIRECTORY}")
     NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(>|\+)")
 
-    echo "---"
-    echo "[INFO] New files to be synced:"
-    echo $(ls -ltrh /backup | grep -E "($(echo ${NEW_FILES} | awk -vORS="|" '{ print $2 }' | sed 's/|$/\n/')")
+    if [[ -z "${NEW_FILES}" ]]; then
+        echo "---"
+        echo "[INFO] Everything already synced!"
+    else
+        echo "---"
+        echo "[INFO] New files to be synced:"
+        echo $(ls -ltrh /backup | grep -E "($(echo ${NEW_FILES} | awk -vORS="|" '{ print $2 }' | sed 's/|$/\n/'))")
 
-    echo "---"
-    echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
-    sshpass -ve rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
+        echo "---"
+        echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
+        sshpass -e rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
+    fi
 }
 
 copy-backup-to-remote
