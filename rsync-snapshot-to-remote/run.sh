@@ -35,12 +35,12 @@ function copy-backup-to-remote {
     echo "Remote files:"
     echo ${REMOTE_FILES}
 
-    NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar)")
+    NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar)" | sed -e "s/+//")
 
     echo "New files:"
     echo ${NEW_FILES}
 
-    GREP_FILES=$(echo ${NEW_FILES} | awk -vORS="|" '{ print $2 }' | sed 's/|$/\n/')
+    GREP_FILES=$(echo ${NEW_FILES} | awk -vORS="|" '{ print $1 }' | sed 's/|$/\n/')
     echo "Grep files:"
     echo ${GREP_FILES}
 
@@ -50,7 +50,7 @@ function copy-backup-to-remote {
     else
         echo "---"
         echo "[INFO] New files to be synced:"
-        echo -e $(ls -ltrh /backup | grep -E "()")
+        echo -e $(ls -ltrh /backup | grep -E "(${GREP_FILES})")
 
         echo "---"
         echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
