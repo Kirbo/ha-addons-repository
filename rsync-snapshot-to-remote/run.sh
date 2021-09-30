@@ -27,10 +27,10 @@ function copy-backup-to-remote {
     echo "---"
     echo "[INFO] Remote files:"
     sshpass -e ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -ltrh ${REMOTE_DIRECTORY}"
-    REMOTE_FILES=$(sshpass -ve ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -trh ${REMOTE_DIRECTORY}")
+    REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -trh ${REMOTE_DIRECTORY}")
     NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(>|\+)")
 
-    if [[ "${NEW_FILES}" == "" ]]; then
+    if [[ -z "${NEW_FILES}" ]]; then
         echo "---"
         echo "[INFO] Everything already synced!"
     else
