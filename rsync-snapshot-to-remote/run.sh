@@ -35,7 +35,7 @@ function copy-backup-to-remote {
     echo "Remote files:"
     echo ${REMOTE_FILES}
 
-    NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar)" | sed -e "s/+//")
+    NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar)")
 
     echo "New files:"
     echo ${NEW_FILES}
