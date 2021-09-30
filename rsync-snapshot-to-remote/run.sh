@@ -27,8 +27,8 @@ function copy-backup-to-remote {
 
     echo "---"
     echo "[INFO] Remote files:"
-    sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -ltrh ${REMOTE_DIRECTORY}"
-    REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -trh ${REMOTE_DIRECTORY} && cd ${REMOTE_DIRECTORY} && du -sch")
+    sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -ltrh ${REMOTE_DIRECTORY} && cd ${REMOTE_DIRECTORY} && du -sch"
+    REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -trh ${REMOTE_DIRECTORY}")
 
     echo "Local files:"
     echo ${LOCAL_FILES}
