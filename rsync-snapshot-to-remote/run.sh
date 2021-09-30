@@ -44,7 +44,7 @@ function copy-backup-to-remote {
     else
         echo "---"
         echo "[INFO] New files to be synced:"
-        echo $(ls -ltrh /backup | grep -E "($(echo ${NEW_FILES} | awk -vORS="|" '{ print $2 }' | sed 's/|$/\n/'))")
+        echo -e $(ls -ltrh /backup | grep -E "($(echo ${NEW_FILES} | awk -vORS="|" '{ print $2 }' | sed 's/|$/\n/'))")
 
         echo "---"
         echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
