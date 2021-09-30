@@ -20,10 +20,15 @@ function copy-backup-to-remote {
     echo "[INFO] Local files:"
     ls -ltrh /backup
 
+    LOCAL_FILES=$(ls -trh /backup)
+
     export SSHPASS="${RSYNC_PASSWORD}"
 
     echo "[INFO] Remote files:"
     sshpass -ve ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -ltrh ${REMOTE_DIRECTORY}"
+    REMOTE_FILES=$(sshpass -ve ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -trh ${REMOTE_DIRECTORY}")
+
+    echo "[INFO] New files to be synced $(diff <(echo "${LOCAL_FILES}") <(echo "${REMOTE_FILES}"))"
 
     echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
     sshpass -ve rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
