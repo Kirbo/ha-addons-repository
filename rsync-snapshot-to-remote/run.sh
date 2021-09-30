@@ -22,7 +22,7 @@ function copy-backup-to-remote {
 
     echo
     echo "[INFO] Local files:"
-    ls -ltrh /backup | grep -v "total" | awk {'printf "\t%s\t%s\n", $5, $9'}
+    ls -ltrh /backup | grep -v "total" | awk '{printf "\t%s\t%s\n", $5, $9}'
     (cd /backup && du -sch)
     LOCAL_FILES=$(ls -trh /backup)
 
@@ -41,7 +41,7 @@ function copy-backup-to-remote {
     else
         echo "---"
         echo "[INFO] New files to be synced:"
-        ls -ltrh /backup | grep -E "(${GREP_FILES})" | awk '{print " ",$5," ",$9}'
+        ls -ltrh /backup | grep -E "(${GREP_FILES})" | awk '{printf "\t%s\t%s\n", $5, $9}'
 
         echo "---"
         echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
