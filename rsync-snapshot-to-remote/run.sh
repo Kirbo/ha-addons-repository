@@ -12,7 +12,7 @@ REMOTE_DIRECTORY=$(jq --raw-output ".remote_directory" $CONFIG_PATH)
 START=$(date +%s)
 res1=$(date +%s.%N)
 
-echo "$(date +"%Y-%m-%d-%H_%M_%S") - [INFO] Sync snapshots to remote started..."
+echo "$(date +"%Y-%m-%d %H:%M:%S") - [INFO] Sync snapshots to remote started..."
 
 # shellcheck disable=SC2120
 function copy-backup-to-remote {
@@ -55,8 +55,8 @@ STOP=$(date +%s)
 
 END=$((STOP - START))
 
-echo "$(date +"%Y-%m-%d-%H_%M_%S") - [INFO] Sync snapshots to remote Completed!"
-echo "$(date +"%Y-%m-%d-%H_%M_%S") - [INFO] Synced in ${END} seconds."
+echo "$(date +"%Y-%m-%d %H:%M:%S") - [INFO] Sync snapshots to remote Completed!"
+echo "$(date +"%Y-%m-%d %H:%M:%S") - [INFO] Synced in ${END} seconds."
 
 res2=$(date +%s.%N)
 dt=$(echo "$res2 - $res1" | bc)
@@ -67,6 +67,6 @@ dt3=$(echo "$dt2-3600*$dh" | bc)
 dm=$(echo "$dt3/60" | bc)
 ds=$(echo "$dt3-60*$dm" | bc)
 
-echo -n "$(date +"%Y-%m-%d-%H_%M_%S") - [INFO] "
+echo -n "$(date +"%Y-%m-%d %H:%M:%S") - [INFO] "
 LC_NUMERIC=C printf "Total runtime: %d:%02d:%02d:%02.4f\n" "${dd}" "${dh}" "${dm}" "${ds}"
 exit 0
