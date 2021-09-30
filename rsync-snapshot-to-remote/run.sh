@@ -31,6 +31,8 @@ function copy-backup-to-remote {
     REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no ${SSH_URL} "ls -trh ${REMOTE_DIRECTORY} && cd ${REMOTE_DIRECTORY} && du -sch")
     NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(>|\+)")
 
+    echo -e "${NEW_FILES}"
+
     if [ -n "${NEW_FILES}" ]; then
         echo "---"
         echo "[INFO] Everything already synced!"
