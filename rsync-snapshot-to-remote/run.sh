@@ -15,17 +15,16 @@ res1=$(date +%s.%N)
 echo "$(date +"%Y-%m-%d-%H_%M_%S") - [INFO] Sync snapshots to remote started..."
 
 function copy-backup-to-remote {
-    rsyncurl="$RSYNC_USER@$RSYNC_HOST::$REMOTE_DIRECTORY"
+    SSH_URL="${RSYNC_USER}@${RSYNC_HOST}"
+    RSYNC_URL="${SSH_URL}::${REMOTE_DIRECTORY}"
     echo "[INFO] Local files:"
     ls -ltrh /backup
 
-    export SSHPASS="${RSYNC_PASSWORD}"
-
     echo "[INFO] Remote files:"
-    sshpass -e ssh ${RSYNC_USER}@${RSYNC_HOST} "ls -ltrh ${REMOTE_DIRECTORY}"
+    sshpass -p "${RSYNC_PASSWORD}" ssh ${SSH_URL} "ls -ltrh ${REMOTE_DIRECTORY}"
 
     echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
-    sshpass -e rsync -av /backup/ "${rsyncurl}" --ignore-existing
+    sshpass -p "${RSYNC_PASSWORD}" rsync -av /backup/ "${RSYNC_URL}" --ignore-existing
 }
 
 copy-backup-to-remote
