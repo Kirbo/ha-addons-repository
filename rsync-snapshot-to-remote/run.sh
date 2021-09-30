@@ -30,19 +30,8 @@ function copy-backup-to-remote {
     sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -ltrh ${REMOTE_DIRECTORY} && cd ${REMOTE_DIRECTORY} && du -sch"
     REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -trh ${REMOTE_DIRECTORY}")
 
-    echo "Local files:"
-    echo ${LOCAL_FILES}
-    echo "Remote files:"
-    echo ${REMOTE_FILES}
-
     NEW_FILES=$(diff <(echo "${REMOTE_FILES}") <(echo "${LOCAL_FILES}") | grep -E "(\+.*\.tar)" | sed -e "s/+//")
-
-    echo "New files:"
-    echo ${NEW_FILES}
-
     GREP_FILES=$(echo ${NEW_FILES} | awk -vORS="|" '{ print $1 }' | sed 's/|$/\n/')
-    echo "Grep files:"
-    echo ${GREP_FILES}
 
     if [[ -z "${NEW_FILES}" ]]; then
         echo "---"
@@ -50,7 +39,7 @@ function copy-backup-to-remote {
     else
         echo "---"
         echo "[INFO] New files to be synced:"
-        echo -e $(ls -ltrh /backup | grep -E "(${GREP_FILES})")
+        ls -ltrh /backup | grep -E "(${GREP_FILES})" | awk '{print " ",$5," ",$9}'
 
         echo "---"
         echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
