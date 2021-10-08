@@ -130,7 +130,7 @@ const handleData = (sr, mac) => {
       ).toFixed(options.decimals.battery || 0),
       voltage: (voltage / 1000).toFixed(options.decimals.voltage || 2),
       low_battery:
-        voltage < (options.battery.low_battery || 2100) ? "ON" : "OFF",
+        voltage < (options.battery.low_battery || 2100) ? true : false,
     };
 
     updated(mac, "RuuviTag", ruuvitag);

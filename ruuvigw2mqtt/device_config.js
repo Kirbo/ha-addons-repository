@@ -10,22 +10,22 @@ module.exports = {
       manufacturer: "Xiaomi",
     }),
     tempConfig: (id) => ({
-      ...module.exports.common(id, "temperature", "°C"),
+      ...module.exports.sensor(id, "temperature", "°C"),
       device_class: "temperature",
       device: module.exports.miTemp.device(id),
     }),
     humidityConfig: (id) => ({
-      ...module.exports.common(id, "humidity", "%"),
+      ...module.exports.sensor(id, "humidity", "%"),
       device_class: "humidity",
       device: module.exports.miTemp.device(id),
     }),
     batteryConfig: (id) => ({
-      ...module.exports.common(id, "battery", "%"),
+      ...module.exports.sensor(id, "battery", "%"),
       device_class: "battery",
       device: module.exports.miTemp.device(id),
     }),
     rssiConfig: (id) => ({
-      ...module.exports.common(id, "rssi", "dBm"),
+      ...module.exports.sensor(id, "rssi", "dBm"),
       device_class: "signal_strength",
       device: module.exports.miTemp.device(id),
     }),
@@ -39,27 +39,27 @@ module.exports = {
       manufacturer: "Xiaomi",
     }),
     tempConfig: (id) => ({
-      ...module.exports.common(id, "temperature", "°C"),
+      ...module.exports.sensor(id, "temperature", "°C"),
       device_class: "temperature",
       device: module.exports.miTemp.device(id),
     }),
     humidityConfig: (id) => ({
-      ...module.exports.common(id, "humidity", "%"),
+      ...module.exports.sensor(id, "humidity", "%"),
       device_class: "humidity",
       device: module.exports.miTemp.device(id),
     }),
     batteryConfig: (id) => ({
-      ...module.exports.common(id, "battery", "%"),
+      ...module.exports.sensor(id, "battery", "%"),
       device_class: "battery",
       device: module.exports.miTemp.device(id),
     }),
     voltageConfig: (id) => ({
-      ...module.exports.common(id, "voltage", "V"),
+      ...module.exports.sensor(id, "voltage", "V"),
       device_class: "battery",
       device: module.exports.miTemp.device(id),
     }),
     rssiConfig: (id) => ({
-      ...module.exports.common(id, "rssi", "dBm"),
+      ...module.exports.sensor(id, "rssi", "dBm"),
       device_class: "signal_strength",
       device: module.exports.miTemp.device(id),
     }),
@@ -73,27 +73,27 @@ module.exports = {
       manufacturer: "Xiaomi",
     }),
     tempConfig: (id) => ({
-      ...module.exports.common(id, "temperature", "°C"),
+      ...module.exports.sensor(id, "temperature", "°C"),
       device_class: "temperature",
       device: module.exports.miPlant.device(id),
     }),
     lightConfig: (id) => ({
-      ...module.exports.common(id, "light", "lx"),
+      ...module.exports.sensor(id, "light", "lx"),
       device_class: "illuminance",
       device: module.exports.miPlant.device(id),
     }),
     moistureConfig: (id) => ({
-      ...module.exports.common(id, "moisture", "%"),
+      ...module.exports.sensor(id, "moisture", "%"),
       icon: "mdi:water-percent",
       device: module.exports.miPlant.device(id),
     }),
     conductivityConfig: (id) => ({
-      ...module.exports.common(id, "conductivity", "µS/cm"),
+      ...module.exports.sensor(id, "conductivity", "µS/cm"),
       icon: "mdi:flash-circle",
       device: module.exports.miPlant.device(id),
     }),
     rssiConfig: (id) => ({
-      ...module.exports.common(id, "rssi", "dBm"),
+      ...module.exports.sensor(id, "rssi", "dBm"),
       device_class: "signal_strength",
       device: module.exports.miPlant.device(id),
     }),
@@ -107,70 +107,71 @@ module.exports = {
       manufacturer: "Ruuvi Innovations",
     }),
     tempConfig: (id) => ({
-      ...module.exports.common(id, "temperature", "°C"),
+      ...module.exports.sensor(id, "temperature", "°C"),
       device_class: "temperature",
       device: module.exports.ruuviTag.device(id),
     }),
     humidityConfig: (id) => ({
-      ...module.exports.common(id, "humidity", "%"),
+      ...module.exports.sensor(id, "humidity", "%"),
       device_class: "humidity",
       device: module.exports.ruuviTag.device(id),
     }),
     pressureConfig: (id) => ({
-      ...module.exports.common(id, "pressure", "hPa"),
+      ...module.exports.sensor(id, "pressure", "hPa"),
       device_class: "pressure",
       device: module.exports.ruuviTag.device(id),
     }),
     voltageConfig: (id) => ({
-      ...module.exports.common(id, "voltage", "V"),
+      ...module.exports.sensor(id, "voltage", "V"),
       device_class: "voltage",
       device: module.exports.ruuviTag.device(id),
     }),
     batteryConfig: (id) => ({
-      ...module.exports.common(id, "battery", "%"),
+      ...module.exports.sensor(id, "battery", "%"),
       device_class: "battery",
       device: module.exports.ruuviTag.device(id),
     }),
     lowBatteryConfig: (id) => ({
-      ...module.exports.common(id, "low_battery"),
+      ...module.exports.binary_sensor(id, "low_battery"),
       device_class: "battery",
       device: module.exports.ruuviTag.device(id),
     }),
     rssiConfig: (id) => ({
-      ...module.exports.common(id, "rssi", "dBm"),
+      ...module.exports.sensor(id, "rssi", "dBm"),
       device_class: "signal_strength",
       device: module.exports.ruuviTag.device(id),
     }),
     txPowerConfig: (id) => ({
-      ...module.exports.common(id, "txPower", ""),
+      ...module.exports.sensor(id, "txPower", ""),
       device: module.exports.ruuviTag.device(id),
     }),
     accelerationXConfig: (id) => ({
-      ...module.exports.common(id, "accelerationX", "g"),
+      ...module.exports.sensor(id, "accelerationX", "g"),
       device: module.exports.ruuviTag.device(id),
     }),
     accelerationYConfig: (id) => ({
-      ...module.exports.common(id, "accelerationY", "g"),
+      ...module.exports.sensor(id, "accelerationY", "g"),
       device: module.exports.ruuviTag.device(id),
     }),
     accelerationZConfig: (id) => ({
-      ...module.exports.common(id, "accelerationZ", "g"),
+      ...module.exports.sensor(id, "accelerationZ", "g"),
       device: module.exports.ruuviTag.device(id),
     }),
     movementCounterConfig: (id) => ({
-      ...module.exports.common(id, "movementCounter", ""),
+      ...module.exports.sensor(id, "movementCounter", ""),
       device: module.exports.ruuviTag.device(id),
     }),
     measurementSequenceNumberConfig: (id) => ({
-      ...module.exports.common(id, "measurementSequenceNumber", ""),
+      ...module.exports.sensor(id, "measurementSequenceNumber", ""),
       device: module.exports.ruuviTag.device(id),
     }),
     dataFormatConfig: (id) => ({
-      ...module.exports.common(id, "dataFormat", ""),
+      ...module.exports.sensor(id, "dataFormat", ""),
       device: module.exports.ruuviTag.device(id),
     }),
   },
-  common: (id, type, unit_of_measurement) => ({
+
+  _common: (id, type, unit_of_measurement) => ({
     ...(unit_of_measurement ? { unit_of_measurement } : {}),
     value_template: `{{ value_json.${type} }}`,
     state_topic: `${options.mqtt_parsed_ruuvi_topic || "ruuvi/parsed/"}${id}`,
@@ -180,5 +181,16 @@ module.exports = {
     name: `${id}_${type}`,
     unique_id: `${id}_${type}_homeassistant`,
     state_class: "measurement",
+  }),
+
+  sensor: (id, type, unit_of_measurement) => ({
+    ...module.exports._common(id, type, unit_of_measurement),
+  }),
+
+  binary_sensor: (id, type, unit_of_measurement) => ({
+    ...module.exports._common(id, type, unit_of_measurement),
+    state_class: undefined,
+    payload_off: false,
+    payload_on: true,
   }),
 };

@@ -1,3 +1,3 @@
-**v1.5.0** (2021-09-26)
+**v1.5.1** (2021-10-08)
 
-- Adds `state_class: measurement` for sensors.
+- Fixes RuuviTag `low_battery` sensors.
