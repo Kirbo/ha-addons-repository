@@ -1,7 +1,7 @@
 {
   "name": "RuuviGW MQTT 2 HA",
   "description": "Broadcast Ruuvi Gateway MQTT messages to HA Auto Discovery",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "slug": "ruuvigwmqtt2ha",
   "url": "https://github.com/kirbo/ha-addons-repository/",
   "startup": "application",
@@ -33,7 +33,8 @@
       "minimum": 2000,
       "maximum": 3000,
       "low_battery": 2100
-    }
+    },
+    "use_prefixes": true
   },
   "schema": {
     "log_level": "list(trace|debug|info|notice|warning|error|fatal)?",
@@ -60,6 +61,7 @@
       "minimum": "int(1800,2000)",
       "maximum": "int(3000,3400)",
       "low_battery": "int(2000,2500)"
-    }
+    },
+    "use_prefixes": "bool"
   }
 }

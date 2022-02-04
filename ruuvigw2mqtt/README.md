@@ -62,6 +62,7 @@ yarn start
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minimum|integer|2000|-|At which voltage do you want it to be 0%.<br>Range: 1800 - 2000|
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maximum|integer|3000|-|At which voltage do you want it to be 100%.<br>Range: 3000 - 3400|
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;low_battery|integer|2100|-|At which voltage do you want "low battery" to be set on.<br>Range: 2000 - 2500|
+|use_prefixes|boolean|true|-|Should the entities contain prefixes or not.<br>E.g.:<br>Enabled: `sensor.ruuvitag_ef09dba67d71_temperature`<br>Disabled: `sensor.ef09dba67d71_temperature`|
 
 Default configuration is as following:
 ```yaml
@@ -86,6 +87,7 @@ battery:
   minimum: 2000
   maximum: 3000
   low_battery: 2100
+use_prefixes: true
 ```
 
 ## How to use
