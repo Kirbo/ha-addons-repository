@@ -1,6 +1,6 @@
 {
   "name": "rsync snapshots to remote location",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "slug": "rsync_snapshot_to_remote_location",
   "description": "Automatically rsync snapshots to remote server",
   "url": "https://github.com/kirbo/ha-addons-repository/",
@@ -14,12 +14,14 @@
     "rsync_host": "",
     "rsync_user": "",
     "rsync_password": "",
-    "remote_directory": ""
+    "remote_directory": "",
+    "keep_days": ""
   },
   "schema": {
     "rsync_host": "str",
     "rsync_user": "str",
     "rsync_password": "str",
-    "remote_directory": "str"
+    "remote_directory": "str",
+    "keep_days": "int"
   }
 }

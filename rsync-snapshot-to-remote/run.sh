@@ -47,6 +47,13 @@ function copy-backup-to-remote {
         echo "[INFO] Syncing /backup to ${REMOTE_DIRECTORY} on ${RSYNC_HOST} using rsync"
         sshpass -e rsync -avz /backup/ "${RSYNC_URL}" --ignore-existing
     fi
+
+    if [[ "${KEEP_DAYS}" != "" ]]; then
+        echo "------"
+        echo "Deleting old backups:"
+        ls -latr $(find /backup -maxdepth 1 -mtime +${KEEP_DAYS} -type f)
+        find /backup -maxdepth 1 -mtime +${KEEP_DAYS} -type f -delete
+    fi
 }
 
 copy-backup-to-remote
