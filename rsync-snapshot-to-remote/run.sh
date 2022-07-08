@@ -8,6 +8,7 @@ RSYNC_HOST=$(jq --raw-output ".rsync_host" $CONFIG_PATH)
 RSYNC_USER=$(jq --raw-output ".rsync_user" $CONFIG_PATH)
 RSYNC_PASSWORD=$(jq --raw-output ".rsync_password" $CONFIG_PATH)
 REMOTE_DIRECTORY=$(jq --raw-output ".remote_directory" $CONFIG_PATH)
+KEEP_DAYS=$(jq --raw-output ".keep_days" $CONFIG_PATH)
 
 START=$(date +%s)
 res1=$(date +%s.%N)
@@ -28,7 +29,6 @@ function copy-backup-to-remote {
 
     echo "---"
     echo "[INFO] Remote files:"
-    # sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" 'ls -ltrh '"${REMOTE_DIRECTORY}"' | grep -v "total" | awk \'{printf "\t%s\t%s\n", $5, $9}\' && cd '"${REMOTE_DIRECTORY}"' && du -sch'
     sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -ltrh "${REMOTE_DIRECTORY}" | grep -v 'total' | awk '{printf \"\t%s\t%s\n\", \$5, \$9}' && cd ${REMOTE_DIRECTORY} && du -sch"
     REMOTE_FILES=$(sshpass -e ssh -o StrictHostKeyChecking=no "${SSH_URL}" "ls -trh ${REMOTE_DIRECTORY}")
 

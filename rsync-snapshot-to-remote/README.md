@@ -17,6 +17,7 @@ Automatically rsync snapshots to remote server.
 |`rsync_user`|Yes|Username to use for `rsync`.|
 |`rsync_password`|Yes|Password to use for `rsync`.|
 |`remote_directory`|Yes|The directory to put the backups on the remote server.<br />For example, on a Synology NAS, this would be the name of the Share.|
+|`keep_days`|No|How many days old backups to keep, default value: 14|
 
 
 ## Example
@@ -42,6 +43,7 @@ rsync_host: 192.168.1.2
 rsync_user: hass
 rsync_password: 'some_password'
 remote_directory: 'homeassistant'
+keep_days: 7
 ```
 
 **Note**: _This is just an example, don't copy and past it! Create your own!_
