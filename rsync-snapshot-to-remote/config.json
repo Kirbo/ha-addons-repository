@@ -1,6 +1,6 @@
 {
   "name": "rsync snapshots to remote location",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "slug": "rsync_snapshot_to_remote_location",
   "description": "Automatically rsync snapshots to remote server",
   "url": "https://github.com/kirbo/ha-addons-repository/",
@@ -10,6 +10,7 @@
   "hassio_api": true,
   "hassio_role": "backup",
   "map": ["backup:rw"],
+  "init": false,
   "options": {
     "rsync_host": "",
     "rsync_user": "",
