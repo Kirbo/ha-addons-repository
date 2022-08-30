@@ -100,40 +100,48 @@ const handleData = (sr, mac) => {
     // ruuvitag
     const adv = Buffer.from(sr.data.split("FF9904")[1], "hex");
     const dataFormat = adv[0];
-    const {
-      humidity,
-      temperature,
-      pressure,
-      accelerationX,
-      accelerationY,
-      accelerationZ,
-      battery: voltage,
-    } = parseData(sr.data);
+    const parsedData = parseData(sr.data);
 
-    const ruuvitag = {
-      dataFormat,
-      rssi: sr.rssi,
-      humidity: Number(humidity.toFixed(options.decimals.humidity || 2)),
-      temperature: Number(
-        temperature.toFixed(options.decimals.temperature || 2)
-      ),
-      pressure: Number(
-        (pressure / 100).toFixed(options.decimals.pressure || 2)
-      ),
-      accelerationX,
-      accelerationY,
-      accelerationZ,
-      battery: resolveBatteryPercentage(
-        options.battery.minimum || 2000,
-        options.battery.maximum || 3000,
-        voltage
-      ).toFixed(options.decimals.battery || 0),
-      voltage: (voltage / 1000).toFixed(options.decimals.voltage || 2),
-      low_battery:
-        voltage < (options.battery.low_battery || 2100) ? true : false,
-    };
+    try {
+      const {
+        humidity,
+        temperature,
+        pressure,
+        accelerationX,
+        accelerationY,
+        accelerationZ,
+        battery: voltage,
+      } = parsedData;
 
-    updated(mac, "RuuviTag", ruuvitag);
+      const ruuvitag = {
+        dataFormat,
+        rssi: sr.rssi,
+        humidity: Number(humidity.toFixed(options.decimals.humidity || 2)),
+        temperature: Number(
+          temperature.toFixed(options.decimals.temperature || 2)
+        ),
+        pressure: Number(
+          (pressure / 100).toFixed(options.decimals.pressure || 2)
+        ),
+        accelerationX,
+        accelerationY,
+        accelerationZ,
+        battery: resolveBatteryPercentage(
+          options.battery.minimum || 2000,
+          options.battery.maximum || 3000,
+          voltage
+        ).toFixed(options.decimals.battery || 0),
+        voltage: (voltage / 1000).toFixed(options.decimals.voltage || 2),
+        low_battery:
+          voltage < (options.battery.low_battery || 2100) ? true : false,
+      };
+
+      updated(mac, "RuuviTag", ruuvitag);
+    } catch (error) {
+      console.log("parsedData", parsedData);
+      console.error(error);
+    }
+
     return;
   }
 

@@ -1,7 +1,7 @@
 {
   "name": "RuuviGW MQTT 2 HA",
   "description": "Broadcast Ruuvi Gateway MQTT messages to HA Auto Discovery",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "slug": "ruuvigwmqtt2ha",
   "url": "https://github.com/kirbo/ha-addons-repository/",
   "startup": "application",
